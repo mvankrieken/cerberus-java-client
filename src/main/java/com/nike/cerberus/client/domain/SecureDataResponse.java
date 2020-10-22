@@ -19,87 +19,79 @@ package com.nike.cerberus.client.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SecureDataResponse {
+	
+	@SerializedName("request_id")
 	private String requestId;
+	
+	@SerializedName("lease_id")
 	private String leaseId = "";
+	
+	@SerializedName("renewable")
 	private boolean renewable;
+	
+	@SerializedName("lease_duration")
 	private int leaseDuration = 3600;
+	
+	@SerializedName("data")
 	private Object data;
+	
+	@SerializedName("wrap_info")
 	private Object wrapInfo;
+	
+	@SerializedName("warnings")
 	private Object warnings;
+	
+	@SerializedName("auth")
 	private Object auth;
+	
+	@SerializedName("metadata")
 	private Map<String, String> metadata = new HashMap<>();
 
 	public String getRequestId() {
 		return requestId;
 	}
 
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
-	}
-
 	public String getLeaseId() {
 		return leaseId;
-	}
-
-	public void setLeaseId(String leaseId) {
-		this.leaseId = leaseId;
 	}
 
 	public boolean isRenewable() {
 		return renewable;
 	}
 
-	public void setRenewable(boolean renewable) {
-		this.renewable = renewable;
-	}
-
 	public int getLeaseDuration() {
 		return leaseDuration;
-	}
-
-	public void setLeaseDuration(int leaseDuration) {
-		this.leaseDuration = leaseDuration;
 	}
 
 	public Object getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
-		this.data = data;
-	}
-
 	public Object getWrapInfo() {
 		return wrapInfo;
-	}
-
-	public void setWrapInfo(Object wrapInfo) {
-		this.wrapInfo = wrapInfo;
 	}
 
 	public Object getWarnings() {
 		return warnings;
 	}
 
-	public void setWarnings(Object warnings) {
-		this.warnings = warnings;
-	}
-
 	public Object getAuth() {
 		return auth;
-	}
-
-	public void setAuth(Object auth) {
-		this.auth = auth;
 	}
 
 	public Map<String, String> getMetadata() {
 		return metadata;
 	}
 
-	public void setMetadata(Map<String, String> metadata) {
-		this.metadata = metadata;
+	@Override
+	public String toString() {
+		return "SecureDataResponse [requestId=" + requestId + ", leaseId=" + leaseId + ", renewable=" + renewable
+				+ ", leaseDuration=" + leaseDuration + ", data=" + data + ", wrapInfo=" + wrapInfo + ", warnings="
+				+ warnings + ", auth=" + auth + ", metadata=" + metadata + "]";
 	}
 
+	
 }

@@ -131,4 +131,8 @@ public class CerberusCredentialsProviderChain implements CerberusCredentialsProv
     public void setReuseLastProvider(final boolean reuseLastProvider) {
         this.reuseLastProvider = reuseLastProvider;
     }
+    
+    public boolean shouldRun() {
+        return true;
+    }
 }

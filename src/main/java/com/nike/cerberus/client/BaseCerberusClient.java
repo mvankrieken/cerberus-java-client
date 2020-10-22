@@ -51,9 +51,9 @@ public abstract class BaseCerberusClient {
 
 	private final MediaType DEFAULT_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 	
-	protected final int DEFAULT_OFFSET 		= 0;
-	protected final int DEFAULT_LIMIT 		= 100;
-	private final int DEFAULT_NUM_RETRIES 	= 3;
+	protected static final int DEFAULT_OFFSET 		= 0;
+	protected static final int DEFAULT_LIMIT 		= 100;
+	private static final int DEFAULT_NUM_RETRIES 	= 3;
 
 	private final RetryConfig RETRY_CONFIG = RetryConfig.<Response>custom().maxAttempts(DEFAULT_NUM_RETRIES)
 			.retryOnResult(response -> response.code() >= 500 && response.code() <= 599)

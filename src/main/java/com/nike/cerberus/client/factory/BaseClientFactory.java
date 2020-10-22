@@ -32,7 +32,6 @@ public abstract class BaseClientFactory {
      * (Default value in OkHttpClient for maxRequests was 64 and maxRequestsPerHost was 5).
      */
     protected static final int DEFAULT_MAX_REQUESTS = 200;
-    protected static final Map<String, String> DEFAULT_HEADERS = new HashMap<>();
     
     protected static List<ConnectionSpec> getConnectionSpecs(){
         List<ConnectionSpec> connectionSpecs = new ArrayList<>();
@@ -61,6 +60,9 @@ public abstract class BaseClientFactory {
         return dispatcher;
     }
 
+    protected static Map<String, String> getDefaultHeaders() {
+    	return new HashMap<>();
+    }
 
 	
 }

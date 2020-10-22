@@ -43,4 +43,8 @@ public class EnvironmentCerberusCredentialsProvider implements CerberusCredentia
 
         throw new CerberusClientException("Cerberus token not found in the environment property: " + CERBERUS_TOKEN_ENV_PROPERTY);
     }
+
+    public boolean shouldRun() {
+        return true;
+    }
 }

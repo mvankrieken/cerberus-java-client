@@ -16,17 +16,17 @@
 
 package com.nike.cerberus.client.factory;
 
-import com.nike.cerberus.client.auth.TokenCerberusCredentials;
-import com.nike.cerberus.client.factory.CerberusClientFactory;
-import com.nike.cerberus.client.CerberusClient;
-import com.nike.cerberus.client.auth.CerberusCredentials;
-import com.nike.cerberus.client.auth.CerberusCredentialsProvider;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+
+import com.nike.cerberus.client.CerberusClient;
+import com.nike.cerberus.client.auth.CerberusCredentials;
+import com.nike.cerberus.client.auth.CerberusCredentialsProvider;
+import com.nike.cerberus.client.auth.TokenCerberusCredentials;
 
 /**
  * Tests the CerberusClientFactoryTest class
@@ -42,6 +42,10 @@ public class CerberusClientFactoryTest {
         @Override
         public CerberusCredentials getCredentials() {
             return new TokenCerberusCredentials(TOKEN);
+        }
+        
+        public boolean shouldRun() {
+            return true;
         }
     };
 

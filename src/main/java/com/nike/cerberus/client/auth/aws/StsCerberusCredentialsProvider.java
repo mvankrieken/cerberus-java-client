@@ -255,4 +255,8 @@ public class StsCerberusCredentialsProvider extends BaseAwsCredentialsProvider {
         credentials = new TokenCerberusCredentials(token.getClientToken());
         expireDateTime = expires;
     }
+    
+    public boolean shouldRun() {
+        return true;
+    }
 }

@@ -20,12 +20,6 @@ public interface CerberusCredentialsProvider {
 
     CerberusCredentials getCredentials();
 
-    /**
-     * Overrideable method to tell a provider chain if a provider should be ran.
-     * @return true if the provider should run.
-     */
-    default boolean shouldRun() {
-        return true;
-    }
+	boolean shouldRun();
 
 }

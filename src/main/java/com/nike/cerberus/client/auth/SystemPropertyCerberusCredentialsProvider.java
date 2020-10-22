@@ -43,4 +43,8 @@ public class SystemPropertyCerberusCredentialsProvider implements CerberusCreden
 
         throw new CerberusClientException("Cerberus token not found in the java system property: " + CERBERUS_TOKEN_SYS_PROPERTY);
     }
+    
+    public boolean shouldRun() {
+        return true;
+    }
 }

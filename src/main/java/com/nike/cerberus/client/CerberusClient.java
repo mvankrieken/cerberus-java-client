@@ -126,14 +126,14 @@ public class CerberusClient extends BaseCerberusClient{
      */
     @Deprecated 
     public CerberusListFilesResponse listFiles(final String path) {
-    	return listFiles(path, null, null);
+    	return listFiles(path, 100, 0);
     }
     
     /**
      * @deprecated  replaced by {@link #listSecureFiles(String category, String sdbName, int limit, int offset)}
      */
     @Deprecated 
-    public CerberusListFilesResponse listFiles(final String path, Integer limit, Integer offset) {
+    public CerberusListFilesResponse listFiles(final String path, int limit, int offset) {
     	Map<String,String> mapping = getLimitMappings(limit, offset);
     	
         final HttpUrl httpUrl = buildUrl(SECURE_FILES,mapping,path);
@@ -333,6 +333,8 @@ public class CerberusClient extends BaseCerberusClient{
     
     @SuppressWarnings("unchecked")
 	public Set<String> getSdbSecretVersionPaths(String sdbId){
+    	checkForNull("roleId", sdbId);
+    	
         final HttpUrl httpUrl = buildUrl(SDB_SECRET_VERSION_PATHS,sdbId);
         logger.debug("getSdbSecretVersionPaths: requestUrl={}", httpUrl);
 
@@ -431,26 +433,37 @@ public class CerberusClient extends BaseCerberusClient{
     }
     
     /*
-     * Secrets
+     * Secret
      */
     
     public SecureDataResponse getSecret(String category, String sdbName, String path) {
+    	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	
     	Map<String,String> mapping = new HashMap<>();
-    	if(path != null && path.endsWith("/")) {
+    	if(path.endsWith("/")) {
     		mapping.put(HttpParam.LIST, "true");
     	}
-    	return getSecrets(mapping, category, sdbName, path);
+    	return getSecret(mapping, category, sdbName, path);
     }
 
-    public SecureDataResponse getSecretVersion(String category, String sdbName, String path, String versionId) {
+    public SecureDataResponse getSecret(String category, String sdbName, String path, String versionId) {
     	Map<String,String> mapping = new HashMap<>();
-    	mapping.put(HttpParam.VERSION_ID, versionId);
-    	return getSecrets(mapping, category, sdbName, path);
+    	if(versionId != null) {
+    		mapping.put(HttpParam.VERSION_ID, versionId);
+    	}
+    	return getSecret(mapping, category, sdbName, path);
     }
     
     public void createSecret(String category, String sdbName, String path, Map<String,String> values) {
+      	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	checkForNull("values", values);
+    	
         final HttpUrl httpUrl = buildUrl(SECRET,category,sdbName,path);
-        logger.debug("getSecrets: requestUrl={}", httpUrl);
+        logger.debug("createSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.POST,values);
         if (response.code() != HttpStatus.NO_CONTENT) {
@@ -459,8 +472,13 @@ public class CerberusClient extends BaseCerberusClient{
     }
     
     public void updateSecret(String category, String sdbName, String path, Map<String,String> values) {
+      	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	checkForNull("values", values);
+    	
         final HttpUrl httpUrl = buildUrl(SECRET,category,sdbName,path);
-        logger.debug("getSecrets: requestUrl={}", httpUrl);
+        logger.debug("updateSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.PUT,values);
         if (response.code() != HttpStatus.NO_CONTENT) {
@@ -469,8 +487,12 @@ public class CerberusClient extends BaseCerberusClient{
     }
     
     public void deleteSecret(String category, String sdbName, String path) {
+      	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	
         final HttpUrl httpUrl = buildUrl(SECRET,category,sdbName,path);
-        logger.debug("getSecrets: requestUrl={}", httpUrl);
+        logger.debug("deleteSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.DELETE);
         if (response.code() != HttpStatus.NO_CONTENT) {
@@ -478,9 +500,9 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    private SecureDataResponse getSecrets(Map<String,String> mapping,String category, String sdbName, String path) {
+    private SecureDataResponse getSecret(Map<String,String> mapping,String category, String sdbName, String path) {
         final HttpUrl httpUrl = buildUrl(SECRET,mapping,category,sdbName,path);
-        logger.debug("getSecrets: requestUrl={}", httpUrl);
+        logger.debug("getSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
         if (response.code() == HttpStatus.NOT_FOUND) {

@@ -16,13 +16,12 @@
 
 package com.nike.cerberus.client.factory;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import com.nike.cerberus.client.CerberusClient;
 import com.nike.cerberus.client.ClientVersion;
-import com.nike.cerberus.client.factory.DefaultCerberusClientFactory;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the DefaultCerberusClientFactory class

@@ -38,7 +38,7 @@ public class CerberusV2ClientFactory extends BaseClientFactory{
     public static CerberusV2Client getClient(final String cerberusUrl,
                                            final CerberusCredentialsProvider cerberusCredentialsProvider) {
 
-        return getClient(cerberusUrl, cerberusCredentialsProvider, DEFAULT_HEADERS);
+        return getClient(cerberusUrl, cerberusCredentialsProvider, getDefaultHeaders());
     }
 
     /**
@@ -86,7 +86,7 @@ public class CerberusV2ClientFactory extends BaseClientFactory{
                 DEFAULT_TIMEOUT,
                 DEFAULT_TIMEOUT,
                 DEFAULT_TIMEOUT,
-                DEFAULT_HEADERS);
+                getDefaultHeaders());
     }
 
     /**
