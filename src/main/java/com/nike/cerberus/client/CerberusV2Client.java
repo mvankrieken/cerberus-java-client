@@ -11,6 +11,8 @@ import com.nike.cerberus.client.model.http.HttpMethod;
 import com.nike.cerberus.client.model.http.HttpStatus;
 import com.nike.cerberus.client.domain.SafeDepositBoxSummary;
 import com.nike.cerberus.client.domain.SafeDepositBoxV2;
+import com.nike.cerberus.client.exception.CerberusClientException;
+import com.nike.cerberus.client.exception.CerberusServerApiException;
 
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -35,7 +37,7 @@ public class CerberusV2Client extends CerberusClient{
 		super(cerberusUrl, credentialsProvider, httpClient);
 	}
     
-    public List<SafeDepositBoxSummary> listSafeDepositBoxesV2() {
+    public List<SafeDepositBoxSummary> listSafeDepositBoxesV2() throws CerberusServerApiException,CerberusClientException{
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX_V2);
         logger.debug("listSafeDepositBoxesV2: requestUrl={}", httpUrl);
 
@@ -47,7 +49,7 @@ public class CerberusV2Client extends CerberusClient{
         return Arrays.asList(parseResponseBody(response, SafeDepositBoxSummary[].class));
     }
     
-    public SafeDepositBoxV2 createSafeDepositBoxV2(SafeDepositBoxV2 sdb) {
+    public SafeDepositBoxV2 createSafeDepositBoxV2(SafeDepositBoxV2 sdb) throws CerberusServerApiException,CerberusClientException {
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX_V2);
         logger.debug("createSafeDepositBoxV2: requestUrl={}", httpUrl);
 
@@ -58,7 +60,7 @@ public class CerberusV2Client extends CerberusClient{
         return parseResponseBody(response, SafeDepositBoxV2.class);
     }
     
-    public SafeDepositBoxV2 getSafeDepositBoxV2(String id) {
+    public SafeDepositBoxV2 getSafeDepositBoxV2(String id) throws CerberusServerApiException,CerberusClientException {
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX_V2,id);
         logger.debug("getSafeDepositBoxV2: requestUrl={}", httpUrl);
 
@@ -70,7 +72,7 @@ public class CerberusV2Client extends CerberusClient{
         return parseResponseBody(response, SafeDepositBoxV2.class);
     }
     
-    public SafeDepositBoxV2 updateSafeDepositBoxV2(String id, SafeDepositBoxV2 sdb) {
+    public SafeDepositBoxV2 updateSafeDepositBoxV2(String id, SafeDepositBoxV2 sdb) throws CerberusServerApiException,CerberusClientException {
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX_V2,id);
         logger.debug("updateSafeDepositBoxV2: requestUrl={}", httpUrl);
 
@@ -82,7 +84,7 @@ public class CerberusV2Client extends CerberusClient{
         return parseResponseBody(response, SafeDepositBoxV2.class);
     }
     
-    public void deleteSafeDepositBoxV2(String id) {
+    public void deleteSafeDepositBoxV2(String id) throws CerberusServerApiException,CerberusClientException{
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX_V2,id);
         logger.debug("deleteSafeDepositBoxV2: requestUrl={}", httpUrl);
 

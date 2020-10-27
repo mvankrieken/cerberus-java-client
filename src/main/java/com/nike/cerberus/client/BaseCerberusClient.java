@@ -124,16 +124,18 @@ public abstract class BaseCerberusClient {
 	 * Execute request
 	 */
 		
-	protected Response executeWithRetry(HttpUrl httpUrl,HttpMethod method) {
+	protected Response executeWithRetry(HttpUrl httpUrl,HttpMethod method) throws CerberusClientException {
 		return executeWithRetry(httpUrl,method,null);
 	}
 	
-	protected Response executeWithRetry(HttpUrl httpUrl,HttpMethod method,Object requestBody) {
-		return ofSupplier(() -> execute(httpUrl, method, requestBody)).withRetry(RETRY).decorate().get();
+	protected Response executeWithRetry(HttpUrl httpUrl,HttpMethod method,Object requestBody) throws CerberusClientException{
+		return ofSupplier(() -> {
+				return execute(httpUrl, method, requestBody);
+		}).withRetry(RETRY).decorate().get();
 	}
 
 	
-	protected Response execute(HttpUrl httpUrl, final byte[] contents) {
+	protected Response execute(HttpUrl httpUrl, final byte[] contents) throws CerberusClientException {
     	List<String> segments 	= httpUrl.pathSegments();
         String fileName 		= segments.get(segments.size() -1);
 
@@ -154,11 +156,11 @@ public abstract class BaseCerberusClient {
         return execute(request);
     }
 	
-	private Response execute(final HttpUrl httpUrl, final HttpMethod method, final Object requestBody) {
+	private Response execute(final HttpUrl httpUrl, final HttpMethod method, final Object requestBody) throws CerberusClientException {
 		return execute(buildRequest(httpUrl, method, requestBody));
 	}
 	
-	private Response execute(Request request) {
+	private Response execute(Request request) throws CerberusClientException{
 		try {
 			return httpClient.newCall(request).execute();
 		} catch (IOException e) {
@@ -256,7 +258,7 @@ public abstract class BaseCerberusClient {
 		}
 	}
 
-	protected byte[] responseBodyAsBytes(Response response) {
+	protected byte[] responseBodyAsBytes(Response response) throws CerberusClientException {
 		try {
 			return response.body().bytes();
 		} catch (IOException ioe) {
@@ -265,7 +267,7 @@ public abstract class BaseCerberusClient {
 		}
 	}
 
-	protected void parseAndThrowApiErrorResponse(final Response response) {
+	protected void parseAndThrowApiErrorResponse(final Response response) throws CerberusServerApiException,CerberusClientException {
 		final String responseBodyStr = responseBodyAsString(response);
 		logger.debug("parseAndThrowApiErrorResponse: responseCode={}, requestUrl={}, response={}", response.code(),
 				response.request().url(), responseBodyStr);
@@ -286,7 +288,7 @@ public abstract class BaseCerberusClient {
 		}
 	}
 
-	protected <M> M parseResponseBody(final Response response, final Class<M> responseClass) {
+	protected <M> M parseResponseBody(final Response response, final Class<M> responseClass) throws CerberusClientException {
 		final String responseBodyStr = responseBodyAsString(response);
 		try {
 			return gson.fromJson(responseBodyStr, responseClass);

@@ -18,77 +18,64 @@ package com.nike.cerberus.client.domain;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SecureFileSummaryResult {
 
-  private boolean hasNext = false;
-  private Integer nextOffset = null;
-  private int limit = 0;
-  private int offset = 0;
-  private int fileCountInResult;
-  private int totalFileCount;
-  private List<SecureFileSummary> secureFileSummaries;
+	@SerializedName("has_next")
+	private boolean hasNext = false;
+	
+	@SerializedName("next_offset")
+	private Integer nextOffset = null;
+	
+	@SerializedName("limit")
+	private int limit = 0;
+	
+	@SerializedName("offset")
+	private int offset = 0;
+	
+	@SerializedName("file_count_in_result")
+	private int fileCountInResult;
+	
+	@SerializedName("total_file_count")
+	private int totalFileCount;
+	
+	@SerializedName("secure_file_summaries")
+	private List<SecureFileSummary> secureFileSummaries;
 
-  public boolean isHasNext() {
-    return hasNext;
-  }
+	public boolean isHasNext() {
+		return hasNext;
+	}
 
-  public SecureFileSummaryResult setHasNext(boolean hasNext) {
-    this.hasNext = hasNext;
-    return this;
-  }
+	public Integer getNextOffset() {
+		return nextOffset;
+	}
 
-  public Integer getNextOffset() {
-    return nextOffset;
-  }
+	public int getLimit() {
+		return limit;
+	}
 
-  public SecureFileSummaryResult setNextOffset(Integer nextOffset) {
-    this.nextOffset = nextOffset;
-    return this;
-  }
+	public int getOffset() {
+		return offset;
+	}
 
-  public int getLimit() {
-    return limit;
-  }
+	public int getFileCountInResult() {
+		return fileCountInResult;
+	}
 
-  public SecureFileSummaryResult setLimit(int limit) {
-    this.limit = limit;
-    return this;
-  }
+	public int getTotalFileCount() {
+		return totalFileCount;
+	}
 
-  public int getOffset() {
-    return offset;
-  }
+	public List<SecureFileSummary> getSecureFileSummaries() {
+		return secureFileSummaries;
+	}
 
-  public SecureFileSummaryResult setOffset(int offset) {
-    this.offset = offset;
-    return this;
-  }
+	@Override
+	public String toString() {
+		return "SecureFileSummaryResult [hasNext=" + hasNext + ", nextOffset=" + nextOffset + ", limit=" + limit
+				+ ", offset=" + offset + ", fileCountInResult=" + fileCountInResult + ", totalFileCount="
+				+ totalFileCount + ", secureFileSummaries=" + secureFileSummaries + "]";
+	}
 
-  public int getFileCountInResult() {
-    return fileCountInResult;
-  }
-
-  public SecureFileSummaryResult setFileCountInResult(int fileCountInResult) {
-    this.fileCountInResult = fileCountInResult;
-    return this;
-  }
-
-  public int getTotalFileCount() {
-    return totalFileCount;
-  }
-
-  public SecureFileSummaryResult setTotalFileCount(int totalFileCount) {
-    this.totalFileCount = totalFileCount;
-    return this;
-  }
-
-  public List<SecureFileSummary> getSecureFileSummaries() {
-    return secureFileSummaries;
-  }
-
-  public SecureFileSummaryResult setSecureFileSummaries(
-      List<SecureFileSummary> secureFileSummaries) {
-    this.secureFileSummaries = secureFileSummaries;
-    return this;
-  }
 }

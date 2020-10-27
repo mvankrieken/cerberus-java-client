@@ -141,7 +141,7 @@ public class CerberusClientSecretTest extends AbstractClientTest{
     
 	@Test(expected = CerberusClientException.class)
 	public void getSecret_by_null_category() {
-		cerberusClient.getSecret("some-category", null, "some-path");
+		cerberusClient.getSecret(null, "some-sdb", "some-path");
 	}
 	
 	@Test(expected = CerberusClientException.class)
@@ -203,7 +203,7 @@ public class CerberusClientSecretTest extends AbstractClientTest{
 	
 	@Test(expected = CerberusClientException.class)
 	public void deleteSecret_by_null_category() {
-		cerberusClient.deleteSecret("some-category", null, "some-path");
+		cerberusClient.deleteSecret(null, "some-sdb", "some-path");
 	}
 	
 	@Test(expected = CerberusClientException.class)
@@ -231,7 +231,7 @@ public class CerberusClientSecretTest extends AbstractClientTest{
 
 	@Test(expected = CerberusClientException.class)
 	public void createSecret_by_null_category() {
-		cerberusClient.createSecret("some-category", null, "some-path",buildSample());
+		cerberusClient.createSecret(null, "some-sdb", "some-path",buildSample());
 	}
 	
 	@Test(expected = CerberusClientException.class)
@@ -283,7 +283,7 @@ public class CerberusClientSecretTest extends AbstractClientTest{
 
 	@Test(expected = CerberusClientException.class)
 	public void updateSecret_by_null_category() {
-		cerberusClient.updateSecret("some-category", null, "some-path",buildSample());
+		cerberusClient.updateSecret(null, "some-sdb", "some-path",buildSample());
 	}
 	
 	@Test(expected = CerberusClientException.class)

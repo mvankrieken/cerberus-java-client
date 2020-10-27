@@ -37,6 +37,8 @@ import com.nike.cerberus.client.domain.SafeDepositBoxV1;
 import com.nike.cerberus.client.domain.SecureDataResponse;
 import com.nike.cerberus.client.domain.SecureDataVersionsResult;
 import com.nike.cerberus.client.domain.SecureFileSummaryResult;
+import com.nike.cerberus.client.exception.CerberusClientException;
+import com.nike.cerberus.client.exception.CerberusServerApiException;
 import com.nike.cerberus.client.model.AdminOverrideOwner;
 import com.nike.cerberus.client.model.CerberusListFilesResponse;
 import com.nike.cerberus.client.model.CerberusListResponse;
@@ -233,7 +235,7 @@ public class CerberusClient extends BaseCerberusClient{
      * Safe deposit box
      */
     
-    public List<SafeDepositBoxSummary> getSafeDepositBoxes() {
+    public List<SafeDepositBoxSummary> getSafeDepositBoxes() throws CerberusServerApiException,CerberusClientException {
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX);
         logger.debug("listSafeDepositBox: requestUrl={}", httpUrl);
 
@@ -245,7 +247,7 @@ public class CerberusClient extends BaseCerberusClient{
         return Arrays.asList(parseResponseBody(response, SafeDepositBoxSummary[].class));
     }
     
-    public SDBCreated createSafeDepositBox(SafeDepositBoxV1 sdb) {
+    public SDBCreated createSafeDepositBox(SafeDepositBoxV1 sdb) throws CerberusServerApiException,CerberusClientException {
     	checkForNull("sdb", sdb);
     	
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX);
@@ -262,7 +264,7 @@ public class CerberusClient extends BaseCerberusClient{
         return null;
     }
     
-    public SafeDepositBoxV1 getSafeDepositBox(String id) {
+    public SafeDepositBoxV1 getSafeDepositBox(String id) throws CerberusServerApiException,CerberusClientException {
     	checkForNull("id", id);
     	
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX,id);
@@ -276,7 +278,7 @@ public class CerberusClient extends BaseCerberusClient{
         return parseResponseBody(response, SafeDepositBoxV1.class);
     }
     
-    public void updateSafeDepositBox(String id, SafeDepositBoxV1 sdb) {
+    public void updateSafeDepositBox(String id, SafeDepositBoxV1 sdb) throws CerberusServerApiException,CerberusClientException{
     	checkForNull("id", id);
     	checkForNull("sdb", sdb);
     	
@@ -289,7 +291,7 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    public void deleteSafeDepositBox(String id) {
+    public void deleteSafeDepositBox(String id) throws CerberusServerApiException,CerberusClientException {
     	checkForNull("id", id);
     	
         final HttpUrl httpUrl = buildUrl(SAFE_DEPOSIT_BOX,id);
@@ -305,11 +307,11 @@ public class CerberusClient extends BaseCerberusClient{
      * Secret-versions
      */
     
-    public SecureDataVersionsResult getVersionPathsForSdb(String category, String sdbName, String path) {
+    public SecureDataVersionsResult getVersionPathsForSdb(String category, String sdbName, String path) throws CerberusServerApiException,CerberusClientException {
     	return getVersionPathsForSdb(category, sdbName, path,100,0);
     }
     
-    public SecureDataVersionsResult getVersionPathsForSdb(String category, String sdbName, String path, int limit, int offset) {
+    public SecureDataVersionsResult getVersionPathsForSdb(String category, String sdbName, String path, int limit, int offset) throws CerberusServerApiException,CerberusClientException {
     	checkForNull("category", category);
     	checkForNull("sdbName", sdbName);
     	checkForNull("path", path);
@@ -332,7 +334,7 @@ public class CerberusClient extends BaseCerberusClient{
      */
     
     @SuppressWarnings("unchecked")
-	public Set<String> getSdbSecretVersionPaths(String sdbId){
+	public Set<String> getSdbSecretVersionPaths(String sdbId) throws CerberusServerApiException,CerberusClientException{
     	checkForNull("roleId", sdbId);
     	
         final HttpUrl httpUrl = buildUrl(SDB_SECRET_VERSION_PATHS,sdbId);
@@ -350,7 +352,7 @@ public class CerberusClient extends BaseCerberusClient{
      * Role
      */
     
-    public List<Role> getRoles(){
+    public List<Role> getRoles() throws CerberusServerApiException,CerberusClientException{
         final HttpUrl httpUrl = buildUrl(ROLE);
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
@@ -362,7 +364,7 @@ public class CerberusClient extends BaseCerberusClient{
         return Arrays.asList(parseResponseBody(response, Role[].class));
     }
     
-    public Role getRole(String roleId){
+    public Role getRole(String roleId) throws CerberusServerApiException,CerberusClientException{
     	checkForNull("roleId", roleId);
     	
         final HttpUrl httpUrl = buildUrl(ROLE,roleId);
@@ -380,7 +382,7 @@ public class CerberusClient extends BaseCerberusClient{
      * Category
      */
     
-    public List<Category> getCategories(){
+    public List<Category> getCategories() throws CerberusServerApiException,CerberusClientException{
         final HttpUrl httpUrl = buildUrl(CATEGORY);
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
@@ -392,7 +394,7 @@ public class CerberusClient extends BaseCerberusClient{
         return Arrays.asList(parseResponseBody(response, Category[].class));
     }
     
-    public Category getCategory(String categoryId){
+    public Category getCategory(String categoryId) throws CerberusServerApiException,CerberusClientException{
     	checkForNull("categoryId", categoryId);
     	
         final HttpUrl httpUrl = buildUrl(CATEGORY,categoryId);
@@ -406,7 +408,7 @@ public class CerberusClient extends BaseCerberusClient{
         return parseResponseBody(response, Category.class);
     }
     
-    public void deleteCategory(String categoryId){
+    public void deleteCategory(String categoryId) throws CerberusServerApiException,CerberusClientException{
     	checkForNull("categoryId", categoryId);
     	
         final HttpUrl httpUrl = buildUrl(CATEGORY,categoryId);
@@ -418,7 +420,7 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    public Category createCategory(Category category){
+    public Category createCategory(Category category) throws CerberusServerApiException,CerberusClientException{
     	checkForNull("category", category);
     	
         final HttpUrl httpUrl = buildUrl(CATEGORY);
@@ -436,7 +438,7 @@ public class CerberusClient extends BaseCerberusClient{
      * Secret
      */
     
-    public SecureDataResponse getSecret(String category, String sdbName, String path) {
+    public SecureDataResponse getSecret(String category, String sdbName, String path) throws CerberusServerApiException,CerberusClientException {
     	checkForNull("category", category);
     	checkForNull("sdbName", sdbName);
     	checkForNull("path", path);
@@ -448,7 +450,7 @@ public class CerberusClient extends BaseCerberusClient{
     	return getSecret(mapping, category, sdbName, path);
     }
 
-    public SecureDataResponse getSecret(String category, String sdbName, String path, String versionId) {
+    public SecureDataResponse getSecret(String category, String sdbName, String path, String versionId) throws CerberusServerApiException,CerberusClientException {
     	Map<String,String> mapping = new HashMap<>();
     	if(versionId != null) {
     		mapping.put(HttpParam.VERSION_ID, versionId);
@@ -456,7 +458,7 @@ public class CerberusClient extends BaseCerberusClient{
     	return getSecret(mapping, category, sdbName, path);
     }
     
-    public void createSecret(String category, String sdbName, String path, Map<String,String> values) {
+    public void createSecret(String category, String sdbName, String path, Map<String,String> values) throws CerberusServerApiException,CerberusClientException {
       	checkForNull("category", category);
     	checkForNull("sdbName", sdbName);
     	checkForNull("path", path);
@@ -471,7 +473,7 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    public void updateSecret(String category, String sdbName, String path, Map<String,String> values) {
+    public void updateSecret(String category, String sdbName, String path, Map<String,String> values) throws CerberusServerApiException,CerberusClientException {
       	checkForNull("category", category);
     	checkForNull("sdbName", sdbName);
     	checkForNull("path", path);
@@ -486,7 +488,7 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    public void deleteSecret(String category, String sdbName, String path) {
+    public void deleteSecret(String category, String sdbName, String path) throws CerberusServerApiException,CerberusClientException {
       	checkForNull("category", category);
     	checkForNull("sdbName", sdbName);
     	checkForNull("path", path);
@@ -500,7 +502,7 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    private SecureDataResponse getSecret(Map<String,String> mapping,String category, String sdbName, String path) {
+    private SecureDataResponse getSecret(Map<String,String> mapping,String category, String sdbName, String path) throws CerberusServerApiException,CerberusClientException {
         final HttpUrl httpUrl = buildUrl(SECRET,mapping,category,sdbName,path);
         logger.debug("getSecret: requestUrl={}", httpUrl);
 
@@ -519,16 +521,23 @@ public class CerberusClient extends BaseCerberusClient{
      * Secure-file
      */
     
-    public byte[] getSecureFile(String category, String sdbName, String path) {
+    public byte[] getSecureFile(String category, String sdbName, String path) throws CerberusServerApiException,CerberusClientException {
+      	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
         return getSecureFile(buildUrl(SECURE_FILE,category, sdbName, path));
     }
     
-    public SecureFileMetadata getSecureFileMetadata(String category, String sdbName, String path) {
+    public SecureFileMetadata getSecureFileMetadata(String category, String sdbName, String path) throws CerberusServerApiException,CerberusClientException {
+      	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	
         final HttpUrl httpUrl = buildUrl(SECURE_FILE,category,sdbName,path);
         logger.debug("getSecureFileMetadata: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.HEAD);
-        if (response.code() == HttpStatus.OK) {
+        if (response.code() == HttpStatus.OK && response.header(HttpHeader.CONTENT_DISPOSITION) != null) {
         	SecureFileMetadata metadata = new SecureFileMetadata();
         	metadata.setContentLength(Integer.parseInt(response.header(HttpHeader.CONTENT_LENGTH)));
         	
@@ -542,13 +551,24 @@ public class CerberusClient extends BaseCerberusClient{
         return null;
     }
     
-    public byte[] getSecureFile(String category, String sdbName, String path, String versionId) {
+    public byte[] getSecureFile(String category, String sdbName, String path, String versionId) throws CerberusServerApiException,CerberusClientException {
+      	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	
     	Map<String,String> mapping = new HashMap<>();
-		mapping.put(HttpParam.VERSION_ID, versionId);
+    	if(versionId != null) {
+    		mapping.put(HttpParam.VERSION_ID, versionId);
+    	}
         return getSecureFile(buildUrl(SECURE_FILE,mapping,category,sdbName,path));
     }
     
-    public void writeSecureFile(String category, String sdbName, String path, final byte[] contents) {
+    public void writeSecureFile(String category, String sdbName, String path, final byte[] contents) throws CerberusServerApiException,CerberusClientException {
+    	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	checkForNull("contents", contents);
+    	
         final HttpUrl httpUrl = buildUrl(SECURE_FILE, category,sdbName,path);
         logger.debug("writeSecureFile: requestUrl={}", httpUrl);
 
@@ -558,7 +578,11 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    public void deleteSecurefile(String category, String sdbName, String path) {
+    public void deleteSecurefile(String category, String sdbName, String path) throws CerberusServerApiException,CerberusClientException {
+    	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	checkForNull("path", path);
+    	
         final HttpUrl httpUrl = buildUrl(SECURE_FILE,category,sdbName,path);
         logger.debug("deleteSecurefile: requestUrl={}", httpUrl);
 
@@ -568,11 +592,14 @@ public class CerberusClient extends BaseCerberusClient{
         }
     }
     
-    public SecureFileSummaryResult listSecureFiles(String category, String sdbName) {
-    	return listSecureFiles(category,sdbName,DEFAULT_LIMIT,DEFAULT_OFFSET);
+    public SecureFileSummaryResult listSecureFile(String category, String sdbName) throws CerberusServerApiException,CerberusClientException {
+    	return listSecureFile(category,sdbName,DEFAULT_LIMIT,DEFAULT_OFFSET);
     }
     
-    public SecureFileSummaryResult listSecureFiles(String category, String sdbName, int limit, int offset) {
+    public SecureFileSummaryResult listSecureFile(String category, String sdbName, int limit, int offset) throws CerberusServerApiException,CerberusClientException {
+    	checkForNull("category", category);
+    	checkForNull("sdbName", sdbName);
+    	
     	Map<String,String> mapping = getLimitMappings(limit, offset);
     	
         final HttpUrl httpUrl = buildUrl(SECURE_FILES,mapping,category,sdbName);
@@ -586,7 +613,7 @@ public class CerberusClient extends BaseCerberusClient{
         return parseResponseBody(response, SecureFileSummaryResult.class);
     }
     
-    private byte[] getSecureFile(HttpUrl httpUrl) {
+    private byte[] getSecureFile(HttpUrl httpUrl) throws CerberusServerApiException,CerberusClientException {
         logger.debug("getSecureFile: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
@@ -601,15 +628,15 @@ public class CerberusClient extends BaseCerberusClient{
      * Metadata
      */
     
-    public SDBMetadataResult getMetadata() {
+    public SDBMetadataResult getMetadata() throws CerberusServerApiException,CerberusClientException {
     	return getMetadata(null, DEFAULT_LIMIT, DEFAULT_OFFSET);
     }
     
-    public SDBMetadataResult getMetadata(String sdbName) {
+    public SDBMetadataResult getMetadata(String sdbName) throws CerberusServerApiException,CerberusClientException {
     	return getMetadata(sdbName, DEFAULT_LIMIT, DEFAULT_OFFSET);
     }
     
-    public SDBMetadataResult getMetadata(String sdbName, int limit, int offset) {
+    public SDBMetadataResult getMetadata(String sdbName, int limit, int offset) throws CerberusServerApiException,CerberusClientException {
     	Map<String,String> mapping = getLimitMappings(limit, offset);
     	if(sdbName != null) {
     		mapping.put(HttpParam.SDB_NAME, sdbName);
@@ -630,7 +657,7 @@ public class CerberusClient extends BaseCerberusClient{
      * Admin
      */
     
-    public AuthKmsKeyMetadataResult getAuthenticationKmsMetadata() {
+    public AuthKmsKeyMetadataResult getAuthenticationKmsMetadata() throws CerberusServerApiException,CerberusClientException {
         final HttpUrl httpUrl = buildUrl(ADMIN_AUTH_KMS_METADATA);
         logger.debug("adminGetAuthenticationKmsMetadata: requestUrl={}", httpUrl);
 
@@ -642,7 +669,7 @@ public class CerberusClient extends BaseCerberusClient{
         return parseResponseBody(response, AuthKmsKeyMetadataResult.class);
     }
     
-    public void overrideOwner(AdminOverrideOwner adminOverrideOwner) {
+    public void overrideOwner(AdminOverrideOwner adminOverrideOwner) throws CerberusServerApiException,CerberusClientException {
     	checkForNull("override", adminOverrideOwner);
     	
         final HttpUrl httpUrl = buildUrl(ADMIN_OVERRIDE_OWNER);

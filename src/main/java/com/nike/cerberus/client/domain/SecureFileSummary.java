@@ -18,86 +18,72 @@ package com.nike.cerberus.client.domain;
 
 import java.time.OffsetDateTime;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SecureFileSummary {
 
-  private String sdboxId;
-  private String path;
-  private int sizeInBytes;
-  private String name;
-  private String createdBy;
-  private OffsetDateTime createdTs;
-  private String lastUpdatedBy;
-  private OffsetDateTime lastUpdatedTs;
+	@SerializedName("sdbox_id")
+	private String sdboxId;
 
-  public String getSdboxId() {
-    return sdboxId;
-  }
+	@SerializedName("path")
+	private String path;
 
-  public SecureFileSummary setSdboxId(String sdboxId) {
-    this.sdboxId = sdboxId;
-    return this;
-  }
+	@SerializedName("size_in_bytes")
+	private int sizeInBytes;
 
-  public String getPath() {
-    return path;
-  }
+	@SerializedName("name")
+	private String name;
 
-  public SecureFileSummary setPath(String path) {
-    this.path = path;
-    return this;
-  }
+	@SerializedName("created_by")
+	private String createdBy;
 
-  public int getSizeInBytes() {
-    return sizeInBytes;
-  }
+	@SerializedName("created_ts")
+	private OffsetDateTime createdTs;
 
-  public SecureFileSummary setSizeInBytes(int sizeInBytes) {
-    this.sizeInBytes = sizeInBytes;
-    return this;
-  }
+	@SerializedName("last_updated_by")
+	private String lastUpdatedBy;
 
-  public String getName() {
-    return name;
-  }
+	@SerializedName("last_updated_ts")
+	private OffsetDateTime lastUpdatedTs;
 
-  public SecureFileSummary setName(String name) {
-    this.name = name;
-    return this;
-  }
+	public String getSdboxId() {
+		return sdboxId;
+	}
 
-  public String getCreatedBy() {
-    return createdBy;
-  }
+	public String getPath() {
+		return path;
+	}
 
-  public SecureFileSummary setCreatedBy(String createdBy) {
-    this.createdBy = createdBy;
-    return this;
-  }
+	public int getSizeInBytes() {
+		return sizeInBytes;
+	}
 
-  public OffsetDateTime getCreatedTs() {
-    return createdTs;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public SecureFileSummary setCreatedTs(OffsetDateTime createdTs) {
-    this.createdTs = createdTs;
-    return this;
-  }
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
-  public String getLastUpdatedBy() {
-    return lastUpdatedBy;
-  }
+	public OffsetDateTime getCreatedTs() {
+		return createdTs;
+	}
 
-  public SecureFileSummary setLastUpdatedBy(String lastUpdatedBy) {
-    this.lastUpdatedBy = lastUpdatedBy;
-    return this;
-  }
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
 
-  public OffsetDateTime getLastUpdatedTs() {
-    return lastUpdatedTs;
-  }
+	public OffsetDateTime getLastUpdatedTs() {
+		return lastUpdatedTs;
+	}
 
-  public SecureFileSummary setLastUpdatedTs(OffsetDateTime lastUpdatedTs) {
-    this.lastUpdatedTs = lastUpdatedTs;
-    return this;
-  }
+	@Override
+	public String toString() {
+		return "SecureFileSummary [sdboxId=" + sdboxId + ", path=" + path + ", sizeInBytes=" + sizeInBytes + ", name="
+				+ name + ", createdBy=" + createdBy + ", createdTs=" + createdTs + ", lastUpdatedBy=" + lastUpdatedBy
+				+ ", lastUpdatedTs=" + lastUpdatedTs + "]";
+	}
+	
+	
 }
