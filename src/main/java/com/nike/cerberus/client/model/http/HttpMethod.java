@@ -33,7 +33,7 @@ public enum HttpMethod {
         this.httpMethod = httpMethod;
     }
  
-    public String getHttpMethod() {
+    public String get() {
 		return httpMethod;
 	}
 }

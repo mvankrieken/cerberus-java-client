@@ -236,6 +236,7 @@ public class CerberusClientSecureFileTest extends AbstractClientTest {
 		assertThat(responce.getLimit()).isEqualTo(100);
 		assertThat(responce.getNextOffset()).isNull();
 		assertThat(responce.getOffset()).isEqualTo(0);
+		assertThat(responce.isHasNext()).isFalse();
 		assertThat(responce.getTotalFileCount()).isEqualTo(3);
 
 		assertThat(responce.getSecureFileSummaries()).isNotNull();

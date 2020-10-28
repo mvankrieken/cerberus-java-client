@@ -34,71 +34,39 @@ public class SecureFileSummary {
         return sdboxId;
     }
 
-    public SecureFileSummary setSdboxId(String sdboxId) {
-        this.sdboxId = sdboxId;
-        return this;
-    }
-
     public String getPath() {
         return path;
-    }
-
-    public SecureFileSummary setPath(String path) {
-        this.path = path;
-        return this;
     }
 
     public int getSizeInBytes() {
         return sizeInBytes;
     }
 
-    public SecureFileSummary setSizeInBytes(int sizeInBytes) {
-        this.sizeInBytes = sizeInBytes;
-        return this;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public SecureFileSummary setName(String name) {
-        this.name = name;
-        return this;
     }
 
     public String getCreatedBy() {
         return createdBy;
     }
 
-    public SecureFileSummary setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
     public DateTime getCreatedTs() {
         return createdTs;
-    }
-
-    public SecureFileSummary setCreatedTs(DateTime createdTs) {
-        this.createdTs = createdTs;
-        return this;
     }
 
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
     }
 
-    public SecureFileSummary setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-        return this;
-    }
-
     public DateTime getLastUpdatedTs() {
         return lastUpdatedTs;
     }
 
-    public SecureFileSummary setLastUpdatedTs(DateTime lastUpdatedTs) {
-        this.lastUpdatedTs = lastUpdatedTs;
-        return this;
-    }
+	@Override
+	public String toString() {
+		return "SecureFileSummary [sdboxId=" + sdboxId + ", path=" + path + ", sizeInBytes=" + sizeInBytes + ", name="
+				+ name + ", createdBy=" + createdBy + ", createdTs=" + createdTs + ", lastUpdatedBy=" + lastUpdatedBy
+				+ ", lastUpdatedTs=" + lastUpdatedTs + "]";
+	}
+
 }

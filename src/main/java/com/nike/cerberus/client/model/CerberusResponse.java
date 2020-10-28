@@ -18,22 +18,15 @@ package com.nike.cerberus.client.model;
 
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
+
 @Deprecated
 public class CerberusResponse {
 
+	@SerializedName("data")
     private Map<String, String> data;
 
-    /**
-     * Returns the key/value pairs stored at a path
-     *
-     * @return Map of data
-     */
     public Map<String, String> getData() {
         return data;
-    }
-
-    public CerberusResponse setData(Map<String, String> data) {
-        this.data = data;
-        return this;
     }
 }

@@ -40,8 +40,10 @@ import com.nike.cerberus.client.auth.DefaultCerberusCredentialsProviderChain;
 import com.nike.cerberus.client.exception.CerberusClientException;
 import com.nike.cerberus.client.exception.CerberusServerApiException;
 import com.nike.cerberus.client.factory.CerberusClientFactory;
+import com.nike.cerberus.client.model.CerberusListFilesResponse;
 import com.nike.cerberus.client.model.CerberusListResponse;
 import com.nike.cerberus.client.model.CerberusResponse;
+import com.nike.cerberus.client.model.SecureFileSummary;
 import com.nike.cerberus.client.model.http.HttpMethod;
 
 import okhttp3.Call;
@@ -51,6 +53,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import okio.Buffer;
 
 /**
  * Tests the CerberusClient class
@@ -141,6 +144,119 @@ public class CerberusClientDeprecatedTest extends AbstractClientTest{
         assertThat(cerberusListResponse.getKeys()).isEmpty();
     }
 
+    /*
+     * ListFiles
+     */
+    
+    @Test
+    public void listFiles_returns_map_of_keys_for_specified_path_if_exists() {
+        final MockResponse response = new MockResponse();
+        response.setResponseCode(200);
+        response.setBody(getResponseJson("listFiles"));
+        mockWebServer.enqueue(response);
+
+        CerberusListFilesResponse responce = cerberusClient.listFiles("app/demo");
+
+		assertThat(responce).isNotNull();
+		assertThat(responce.toString()).isNotNull();
+		
+		assertThat(responce.getFileCountInResult()).isEqualTo(3);
+		assertThat(responce.getLimit()).isEqualTo(100);
+		assertThat(responce.getNextOffset()).isNull();
+		assertThat(responce.getOffset()).isEqualTo(0);
+		assertThat(responce.isHasNext()).isFalse();
+		assertThat(responce.getTotalFileCount()).isEqualTo(3);
+
+		assertThat(responce.getSecureFileSummaries()).isNotNull();
+		
+		SecureFileSummary secureFileSummary = responce.getSecureFileSummaries().get(0);
+		assertThat(secureFileSummary).isNotNull();
+		assertThat(secureFileSummary.toString()).isNotNull();
+		
+		assertThat(secureFileSummary.getCreatedBy()).isNotNull();
+		assertThat(secureFileSummary.getCreatedTs()).isNotNull();
+		assertThat(secureFileSummary.getLastUpdatedBy()).isNotNull();
+		assertThat(secureFileSummary.getLastUpdatedTs()).isNotNull();
+		assertThat(secureFileSummary.getName()).isNotNull();
+		assertThat(secureFileSummary.getPath()).isNotNull();
+		assertThat(secureFileSummary.getPath()).isNotNull();
+		assertThat(secureFileSummary.getSdboxId()).isNotNull();
+		assertThat(secureFileSummary.getSizeInBytes()).isEqualTo(1983);
+    }
+    
+    @Test(expected = CerberusClientException.class)
+    public void listFiles_throw_error_on_404() {
+        final MockResponse response = new MockResponse();
+        response.setResponseCode(404);
+        mockWebServer.enqueue(response);
+
+        cerberusClient.listFiles("app/demo");
+    }
+    
+    /*
+     * deleteFile
+     */
+    
+    @Test
+    public void deleteFile_return_void() {
+        final MockResponse response = new MockResponse();
+        response.setResponseCode(200);
+        mockWebServer.enqueue(response);
+
+        cerberusClient.deleteFile("app/demo");
+    }
+    
+    @Test(expected = CerberusClientException.class)
+    public void deleteFile_throw_error_on_404() {
+        final MockResponse response = new MockResponse();
+        response.setResponseCode(404);
+        mockWebServer.enqueue(response);
+
+        cerberusClient.deleteFile("app/demo");
+    }
+    
+    /*
+     * readFileAsBytes
+     */
+    
+    @Test
+    public void readFileAsBytes_return_bytes() {
+    	Buffer buffer = new Buffer();
+    	buffer.writeUtf8("some-content");
+    	
+        final MockResponse response = new MockResponse();
+        response.setResponseCode(200);
+        response.setBody(buffer);
+        mockWebServer.enqueue(response);
+        
+        byte[] bytes = cerberusClient.readFileAsBytes("app/demo");
+        assertThat(bytes).isNotNull();
+    }
+    
+    
+    
+    /*
+     * writeFile
+     */
+    
+    @Test
+    public void writeFile_return_void() {
+        final MockResponse response = new MockResponse();
+        response.setResponseCode(204);
+        mockWebServer.enqueue(response);
+
+        cerberusClient.writeFile("app/demo","some-conent".getBytes());
+    }
+    
+    @Test(expected = CerberusClientException.class)
+    public void writeFile_throw_error_on_404() {
+        final MockResponse response = new MockResponse();
+        response.setResponseCode(404);
+        mockWebServer.enqueue(response);
+
+        cerberusClient.writeFile("app/demo","some-conent".getBytes());
+    }
+    
     /*
      * Read
      */
@@ -312,7 +428,10 @@ public class CerberusClientDeprecatedTest extends AbstractClientTest{
             cerberusClient.delete("app/not-allowed");
         } catch (CerberusServerApiException se) {
             assertThat(se.getCode()).isEqualTo(403);
+            assertThat(se.getErrorId()).isNotNull();
             assertThat(se.getErrors()).hasSize(1);
+            assertThat(se.getErrors().get(0).getCode()).isEqualTo(99996);
+            assertThat(se.getErrors().get(0).getMessage()).isNotNull();
         }
     }
 

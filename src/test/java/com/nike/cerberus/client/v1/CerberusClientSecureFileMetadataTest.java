@@ -68,8 +68,8 @@ public class CerberusClientSecureFileMetadataTest extends AbstractClientTest {
 	public void getSecureFileMetadata_returns_secure_file_metadata() {
 		final MockResponse response = new MockResponse();
 		response.setResponseCode(200);
-		response.setHeader(HttpHeader.CONTENT_DISPOSITION, String.format("attachment; filename=\"%s\"", "some-filename"));
-		response.setHeader(HttpHeader.CONTENT_LENGTH, 5001);
+		response.setHeader(HttpHeader.CONTENT_DISPOSITION.get(), String.format("attachment; filename=\"%s\"", "some-filename"));
+		response.setHeader(HttpHeader.CONTENT_LENGTH.get(), 5001);
 		mockWebServer.enqueue(response);
 
 		SecureFileMetadata responce = cerberusClient.getSecureFileMetadata("some-category", "some-sdbName", "some-path");
@@ -100,8 +100,8 @@ public class CerberusClientSecureFileMetadataTest extends AbstractClientTest {
 	public void getSecureFileMetadata_throws_server_exception_if_response_is_not_ok() {
 		final MockResponse response = new MockResponse();
 		response.setResponseCode(404);
-		response.setHeader(HttpHeader.CONTENT_DISPOSITION, String.format("attachment; filename=\"%s\"", "some-filename"));
-		response.setHeader(HttpHeader.CONTENT_LENGTH, 5001);
+		response.setHeader(HttpHeader.CONTENT_DISPOSITION.get(), String.format("attachment; filename=\"%s\"", "some-filename"));
+		response.setHeader(HttpHeader.CONTENT_LENGTH.get(), 5001);
 		mockWebServer.enqueue(response);
 
 		cerberusClient.getSecureFileMetadata("some-category", "some-sdbName", "some-path");
@@ -111,7 +111,7 @@ public class CerberusClientSecureFileMetadataTest extends AbstractClientTest {
 	public void getSecureFileMetadata_throws_client_exception_missing_header_disposition() {
 		final MockResponse response = new MockResponse();
 		response.setResponseCode(200);
-		response.setHeader(HttpHeader.CONTENT_LENGTH, 5001);
+		response.setHeader(HttpHeader.CONTENT_LENGTH.get(), 5001);
 		mockWebServer.enqueue(response);
 
 		cerberusClient.getSecureFileMetadata("some-category", "some-sdbName", "some-path");

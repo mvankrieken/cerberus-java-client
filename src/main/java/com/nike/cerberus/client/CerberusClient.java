@@ -95,10 +95,10 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("list: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() == HttpStatus.NOT_FOUND) {
+        if (response.code() == HttpStatus.NOT_FOUND.get()) {
             response.close();
             return new CerberusListResponse();
-        } else if (response.code() != HttpStatus.OK) {
+        } else if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -142,7 +142,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("listFiles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -158,7 +158,7 @@ public class CerberusClient extends BaseCerberusClient{
 	    logger.debug("read: requestUrl={}", httpUrl);
 	
 	    final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-	    if (response.code() != HttpStatus.OK) {
+	    if (response.code() != HttpStatus.OK.get()) {
 	          parseAndThrowApiErrorResponse(response);
 	    }
 	
@@ -182,7 +182,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("writeFile: requestUrl={}", httpUrl);
 
         final Response response = execute(httpUrl, contents);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -196,7 +196,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("write: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.POST,values);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -210,7 +210,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("deleteFile: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.DELETE);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -224,7 +224,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("delete: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.DELETE);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -240,7 +240,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("listSafeDepositBox: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -254,9 +254,9 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("createSafeDepositBox: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.POST, sdb);
-        if (response.code() == HttpStatus.CREATED) {
+        if (response.code() == HttpStatus.CREATED.get()) {
         	SDBCreated result = parseResponseBody(response, SDBCreated.class);
-        	result.setLocation(response.header(HttpHeader.LOCATION));
+        	result.setLocation(response.header(HttpHeader.LOCATION.get()));
         	return result;
         }else {
         	parseAndThrowApiErrorResponse(response);
@@ -271,7 +271,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getSafeDepositBox: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -286,7 +286,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("updateSafeDepositBox: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.PUT, sdb);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -298,7 +298,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("deleteSafeDepositBox: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.DELETE);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -322,7 +322,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getVersionPathsForSdb: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -341,7 +341,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getSdbSecretVersionPaths: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -357,7 +357,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -371,7 +371,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -387,7 +387,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -401,7 +401,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -415,7 +415,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.DELETE);
-        if (response.code() != HttpStatus.OK && response.code() != HttpStatus.NOT_FOUND) {
+        if (response.code() != HttpStatus.OK.get() && response.code() != HttpStatus.NOT_FOUND.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -427,7 +427,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getRoles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.POST,category);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -445,7 +445,7 @@ public class CerberusClient extends BaseCerberusClient{
     	
     	Map<String,String> mapping = new HashMap<>();
     	if(path.endsWith("/")) {
-    		mapping.put(HttpParam.LIST, "true");
+    		mapping.put(HttpParam.LIST.get(), "true");
     	}
     	return getSecret(mapping, category, sdbName, path);
     }
@@ -453,7 +453,7 @@ public class CerberusClient extends BaseCerberusClient{
     public SecureDataResponse getSecret(String category, String sdbName, String path, String versionId) throws CerberusServerApiException,CerberusClientException {
     	Map<String,String> mapping = new HashMap<>();
     	if(versionId != null) {
-    		mapping.put(HttpParam.VERSION_ID, versionId);
+    		mapping.put(HttpParam.VERSION_ID.get(), versionId);
     	}
     	return getSecret(mapping, category, sdbName, path);
     }
@@ -468,7 +468,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("createSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.POST,values);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -483,7 +483,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("updateSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.PUT,values);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -497,7 +497,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("deleteSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.DELETE);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -507,10 +507,10 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getSecret: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() == HttpStatus.NOT_FOUND) {
+        if (response.code() == HttpStatus.NOT_FOUND.get()) {
             response.close();
             return new SecureDataResponse();
-        } else if (response.code() != HttpStatus.OK) {
+        } else if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -537,11 +537,11 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getSecureFileMetadata: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.HEAD);
-        if (response.code() == HttpStatus.OK && response.header(HttpHeader.CONTENT_DISPOSITION) != null) {
+        if (response.code() == HttpStatus.OK.get() && response.header(HttpHeader.CONTENT_DISPOSITION.get()) != null) {
         	SecureFileMetadata metadata = new SecureFileMetadata();
-        	metadata.setContentLength(Integer.parseInt(response.header(HttpHeader.CONTENT_LENGTH)));
+        	metadata.setContentLength(Integer.parseInt(response.header(HttpHeader.CONTENT_LENGTH.get())));
         	
-        	String disposition = response.header(HttpHeader.CONTENT_DISPOSITION);
+        	String disposition = response.header(HttpHeader.CONTENT_DISPOSITION.get());
         	metadata.setFilename(disposition.replaceFirst("(?i)^.*filename=\"?([^\"]+)\"?.*$", "$1"));
         	return metadata;
         }else {
@@ -558,7 +558,7 @@ public class CerberusClient extends BaseCerberusClient{
     	
     	Map<String,String> mapping = new HashMap<>();
     	if(versionId != null) {
-    		mapping.put(HttpParam.VERSION_ID, versionId);
+    		mapping.put(HttpParam.VERSION_ID.get(), versionId);
     	}
         return getSecureFile(buildUrl(SECURE_FILE,mapping,category,sdbName,path));
     }
@@ -573,7 +573,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("writeSecureFile: requestUrl={}", httpUrl);
 
         final Response response = execute(httpUrl, contents);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -587,7 +587,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("deleteSecurefile: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.DELETE);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }
@@ -606,7 +606,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("listSecureFiles: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -617,7 +617,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("getSecureFile: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -639,14 +639,14 @@ public class CerberusClient extends BaseCerberusClient{
     public SDBMetadataResult getMetadata(String sdbName, int limit, int offset) throws CerberusServerApiException,CerberusClientException {
     	Map<String,String> mapping = getLimitMappings(limit, offset);
     	if(sdbName != null) {
-    		mapping.put(HttpParam.SDB_NAME, sdbName);
+    		mapping.put(HttpParam.SDB_NAME.get(), sdbName);
     	}
     	
         final HttpUrl httpUrl = buildUrl(METADATA);
         logger.debug("getMetadata: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -662,7 +662,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("adminGetAuthenticationKmsMetadata: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.GET);
-        if (response.code() != HttpStatus.OK) {
+        if (response.code() != HttpStatus.OK.get()) {
             parseAndThrowApiErrorResponse(response);
         }
 
@@ -676,7 +676,7 @@ public class CerberusClient extends BaseCerberusClient{
         logger.debug("adminOverrideOwner: requestUrl={}", httpUrl);
 
         final Response response = executeWithRetry(httpUrl, HttpMethod.PUT,adminOverrideOwner);
-        if (response.code() != HttpStatus.NO_CONTENT) {
+        if (response.code() != HttpStatus.NO_CONTENT.get()) {
             parseAndThrowApiErrorResponse(response);
         }
     }

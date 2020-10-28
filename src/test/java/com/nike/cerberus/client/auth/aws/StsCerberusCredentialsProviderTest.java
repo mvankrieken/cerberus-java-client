@@ -109,33 +109,19 @@ public class StsCerberusCredentialsProviderTest {
 	        CerberusAuthResponse token = credentialsProvider.getToken();
 	        assertThat(token).isNotNull();
 	        assertThat(StringUtils.isNotEmpty(token.getClientToken()));
+	        assertThat(token).isNotNull();
+	        assertThat(token.toString()).isNotNull();
+	        assertThat(token.getClientToken()).isNotNull();
+	        assertThat(token.getLeaseDuration()).isNotNull();
+	        assertThat(token.getMetadata()).isNull();
+	        assertThat(token.getPolicies()).isNull();
+	        assertThat(token.isRenewable()).isFalse();
 	        
 	    }finally {
 	    	mockWebServer.close();
 		}
     }
-
-    /*
-    @Test(expected = CerberusClientException.class)
-    public void get_token_throws_exception_timeout() throws IOException {
-
-        when(chain.getCredentials()).thenReturn(credentials);
-
-        MockWebServer mockWebServer = new MockWebServer();
-        mockWebServer.start();
-        try {
-	        final String cerberusUrl = "http://localhost:" + mockWebServer.getPort();
-	        StsCerberusCredentialsProvider credentialsProvider = new StsCerberusCredentialsProvider(cerberusUrl, REGION_STRING_EAST, chain);
-	
-	        CerberusAuthResponse token = credentialsProvider.getToken();
-	        assertThat(token).isNotNull();
-	        assertThat(StringUtils.isNotEmpty(token.getClientToken()));
-	    }finally {
-	    	mockWebServer.close();
-		}
-    }
-    */
-
+    
     @Test(expected = CerberusClientException.class)
     public void get_token_throws_exception_when_url_is_blank(){
 
@@ -157,9 +143,7 @@ public class StsCerberusCredentialsProviderTest {
 	        StsCerberusCredentialsProvider credentialsProvider = new StsCerberusCredentialsProvider(cerberusUrl, REGION_STRING_EAST, chain);
 	        mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody(ERROR_RESPONSE));
 	
-	        CerberusAuthResponse token = credentialsProvider.getToken();
-	        assertThat(token).isNotNull();
-	        assertThat(StringUtils.isNotEmpty(token.getClientToken()));
+	        credentialsProvider.getToken();
 	    }finally {
 	    	mockWebServer.close();
 		}

@@ -78,4 +78,11 @@ public class CerberusAuthResponse {
         this.renewable = renewable;
         return this;
     }
+
+	@Override
+	public String toString() {
+		return "CerberusAuthResponse [clientToken=" + clientToken + ", policies=" + policies + ", metadata=" + metadata
+				+ ", leaseDuration=" + leaseDuration + ", renewable=" + renewable + "]";
+	}
+    
 }

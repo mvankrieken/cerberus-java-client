@@ -211,13 +211,13 @@ public class StsCerberusCredentialsProvider extends BaseAwsCredentialsProvider {
             Request request = new Request.Builder()
                     .url(cerberusUrl + "/v2/auth/sts-identity")
                     .headers(Headers.of(signedHeaders))
-                    .method(HttpMethod.POST.getHttpMethod(), RequestBody.create(DEFAULT_MEDIA_TYPE, ""))
+                    .method(HttpMethod.POST.get(), RequestBody.create(DEFAULT_MEDIA_TYPE, ""))
                     .build();
 
             Response response = executeRequestWithRetry(request, DEFAULT_AUTH_RETRIES, DEFAULT_RETRY_INTERVAL_IN_MILLIS);
             String responseBody = response.body().string();
 
-            if (response.code() != HttpStatus.OK) {
+            if (response.code() != HttpStatus.OK.get()) {
                 new DefaultAWSCredentialsProviderChainDebugger().logExtraDebuggingIfAppropriate(responseBody);
                 parseAndThrowErrorResponse(response.code(), responseBody);
             }

@@ -1,6 +1,5 @@
 package com.nike.cerberus.client.v1;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;

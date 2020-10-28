@@ -1,0 +1,36 @@
+{
+  "has_next" : false,
+  "next_offset" : null,
+  "limit" : 100,
+  "offset" : 0,
+  "file_count_in_result" : 3,
+  "total_file_count" : 3,
+  "secure_file_summaries" : [ {
+    "sdbox_id" : "0000-0000-0000-0000",
+    "path" : "/category/sdb-slug/ssh.pem",
+    "name" : "ssh.pem",
+    "size_in_bytes" : 1983,
+    "created_by" : "user0@example.com",
+    "created_ts" : "2016-04-05T04:19:51Z",
+    "last_updated_by" : "user@example.com",
+    "last_updated_ts" : "2016-04-05T05:19:59Z"
+  }, {
+    "sdbox_id" : "0000-0000-0000-0000",
+    "path" : "/category/sdb-slug/cacerts",
+    "name" : "cacerts",
+    "size_in_bytes" : 1983,
+    "created_by" : "user0@example.com",
+    "created_ts" : "2016-04-05T04:19:51Z",
+    "last_updated_by" : "user@example.com",
+    "last_updated_ts" : "2016-04-05T05:19:59Z"
+  }, {
+    "sdbox_id" : "0000-0000-0000-0000",
+    "path" : "/category/sdb-slug/bar.privatekey",
+    "name" : "bar.privatekey",
+    "size_in_bytes" : 1983,
+    "created_by" : "user0@example.com",
+    "created_ts" : "2016-04-05T04:19:51Z",
+    "last_updated_by" : "user@example.com",
+    "last_updated_ts" : "2016-04-05T05:19:59Z"
+  } ]
+}

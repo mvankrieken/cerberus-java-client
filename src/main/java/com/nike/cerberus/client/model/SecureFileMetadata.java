@@ -5,14 +5,6 @@ public class SecureFileMetadata {
 	private String filename;
 	private int contentLength;
 
-	public SecureFileMetadata() {
-	}
-
-	public SecureFileMetadata(String filename, int contentLength) {
-		this.filename = filename;
-		this.contentLength = contentLength;
-	}
-
 	public String getFilename() {
 		return filename;
 	}

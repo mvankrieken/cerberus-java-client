@@ -20,275 +20,155 @@ import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SafeDepositBoxV2 implements SafeDepositBox {
 
-  private String id;
+	@SerializedName("id")
+	private String id;
 
-  private String categoryId;
+	@SerializedName("category_id")
+	private String categoryId;
 
-  private String name;
+	@SerializedName("name")
+	private String name;
 
-  private String description;
+	@SerializedName("description")
+	private String description;
 
-  private String path;
+	@SerializedName("path")
+	private String path;
 
-  private OffsetDateTime createdTs;
+	@SerializedName("created_ts")
+	private OffsetDateTime createdTs;
 
-  private OffsetDateTime lastUpdatedTs;
+	@SerializedName("last_updated_ts")
+	private OffsetDateTime lastUpdatedTs;
 
-  private String createdBy;
+	@SerializedName("created_by")
+	private String createdBy;
 
-  private String lastUpdatedBy;
+	@SerializedName("last_updated_by")
+	private String lastUpdatedBy;
 
-  private String owner;
+	@SerializedName("owner")
+	private String owner;
 
-  private Set<UserGroupPermission> userGroupPermissions = new HashSet<>();
+	@SerializedName("user_group_permissions")
+	private Set<UserGroupPermission> userGroupPermissions = new HashSet<>();
 
-  private Set<IamPrincipalPermission> iamPrincipalPermissions = new HashSet<>();
+	@SerializedName("iam_principal_permissions")
+	private Set<IamPrincipalPermission> iamPrincipalPermissions = new HashSet<>();
 
-  public String getId() {
-    return id;
-  }
+	public String getId() {
+		return id;
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+	public String getCategoryId() {
+		return categoryId;
+	}
 
-  public String getCategoryId() {
-    return categoryId;
-  }
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
 
-  public void setCategoryId(String categoryId) {
-    this.categoryId = categoryId;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public String getPath() {
+		return path;
+	}
 
-  public String getPath() {
-    return path;
-  }
+	public void setPath(String path) {
+		this.path = path;
+	}
 
-  public void setPath(String path) {
-    this.path = path;
-  }
+	public OffsetDateTime getCreatedTs() {
+		return createdTs;
+	}
 
-  public OffsetDateTime getCreatedTs() {
-    return createdTs;
-  }
+	public void setCreatedTs(OffsetDateTime createdTs) {
+		this.createdTs = createdTs;
+	}
 
-  public void setCreatedTs(OffsetDateTime createdTs) {
-    this.createdTs = createdTs;
-  }
+	public OffsetDateTime getLastUpdatedTs() {
+		return lastUpdatedTs;
+	}
 
-  public OffsetDateTime getLastUpdatedTs() {
-    return lastUpdatedTs;
-  }
+	public void setLastUpdatedTs(OffsetDateTime lastUpdatedTs) {
+		this.lastUpdatedTs = lastUpdatedTs;
+	}
 
-  public void setLastUpdatedTs(OffsetDateTime lastUpdatedTs) {
-    this.lastUpdatedTs = lastUpdatedTs;
-  }
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
-  public String getCreatedBy() {
-    return createdBy;
-  }
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 
-  public void setCreatedBy(String createdBy) {
-    this.createdBy = createdBy;
-  }
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
 
-  public String getLastUpdatedBy() {
-    return lastUpdatedBy;
-  }
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
 
-  public void setLastUpdatedBy(String lastUpdatedBy) {
-    this.lastUpdatedBy = lastUpdatedBy;
-  }
+	public String getOwner() {
+		return owner;
+	}
 
-  public String getOwner() {
-    return owner;
-  }
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
+	public Set<UserGroupPermission> getUserGroupPermissions() {
+		return userGroupPermissions;
+	}
 
-  public Set<UserGroupPermission> getUserGroupPermissions() {
-    return userGroupPermissions;
-  }
+	public void setUserGroupPermissions(Set<UserGroupPermission> userGroupPermissions) {
+		this.userGroupPermissions = userGroupPermissions;
+	}
+	
+	public void addUserGroupPermission(UserGroupPermission userGroupPermission) {
+		this.userGroupPermissions.add(userGroupPermission);
+	}
 
-  public void setUserGroupPermissions(Set<UserGroupPermission> userGroupPermissions) {
-    this.userGroupPermissions = userGroupPermissions;
-  }
+	public Set<IamPrincipalPermission> getIamPrincipalPermissions() {
+		return iamPrincipalPermissions;
+	}
 
-  public Set<IamPrincipalPermission> getIamPrincipalPermissions() {
-    return iamPrincipalPermissions;
-  }
+	public void setIamPrincipalPermissions(Set<IamPrincipalPermission> iamPrincipalPermissions) {
+		this.iamPrincipalPermissions = iamPrincipalPermissions;
+	}
+	
+	public void addIamPrincipalPermissions(IamPrincipalPermission iamPrincipalPermission) {
+		this.iamPrincipalPermissions.add(iamPrincipalPermission);
+	}
 
-  public void setIamPrincipalPermissions(Set<IamPrincipalPermission> iamPrincipalPermissions) {
-    this.iamPrincipalPermissions = iamPrincipalPermissions;
-  }
+	@Override
+	public String toString() {
+		return "SafeDepositBoxV2 [id=" + id + ", categoryId=" + categoryId + ", name=" + name + ", description="
+				+ description + ", path=" + path + ", createdTs=" + createdTs + ", lastUpdatedTs=" + lastUpdatedTs
+				+ ", createdBy=" + createdBy + ", lastUpdatedBy=" + lastUpdatedBy + ", owner=" + owner
+				+ ", userGroupPermissions=" + userGroupPermissions + ", iamPrincipalPermissions="
+				+ iamPrincipalPermissions + "]";
+	}
+	
+	
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    SafeDepositBoxV2 that = (SafeDepositBoxV2) o;
-
-    if (id != null ? !id.equals(that.id) : that.id != null) return false;
-    if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null)
-      return false;
-    if (name != null ? !name.equals(that.name) : that.name != null) return false;
-    if (description != null ? !description.equals(that.description) : that.description != null)
-      return false;
-    if (path != null ? !path.equals(that.path) : that.path != null) return false;
-    if (createdTs != null ? !createdTs.equals(that.createdTs) : that.createdTs != null)
-      return false;
-    if (lastUpdatedTs != null
-        ? !lastUpdatedTs.equals(that.lastUpdatedTs)
-        : that.lastUpdatedTs != null) return false;
-    if (createdBy != null ? !createdBy.equals(that.createdBy) : that.createdBy != null)
-      return false;
-    if (lastUpdatedBy != null
-        ? !lastUpdatedBy.equals(that.lastUpdatedBy)
-        : that.lastUpdatedBy != null) return false;
-    if (owner != null ? !owner.equals(that.owner) : that.owner != null) return false;
-    if (userGroupPermissions != null
-        ? !userGroupPermissions.equals(that.userGroupPermissions)
-        : that.userGroupPermissions != null) return false;
-    return iamPrincipalPermissions != null
-        ? iamPrincipalPermissions.equals(that.iamPrincipalPermissions)
-        : that.iamPrincipalPermissions == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (description != null ? description.hashCode() : 0);
-    result = 31 * result + (path != null ? path.hashCode() : 0);
-    result = 31 * result + (createdTs != null ? createdTs.hashCode() : 0);
-    result = 31 * result + (lastUpdatedTs != null ? lastUpdatedTs.hashCode() : 0);
-    result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
-    result = 31 * result + (lastUpdatedBy != null ? lastUpdatedBy.hashCode() : 0);
-    result = 31 * result + (owner != null ? owner.hashCode() : 0);
-    result = 31 * result + (userGroupPermissions != null ? userGroupPermissions.hashCode() : 0);
-    result =
-        31 * result + (iamPrincipalPermissions != null ? iamPrincipalPermissions.hashCode() : 0);
-    return result;
-  }
-
-  public static final class Builder {
-    private String id;
-    private String categoryId;
-    private String name;
-    private String description;
-    private String path;
-    private OffsetDateTime createdTs;
-    private OffsetDateTime lastUpdatedTs;
-    private String createdBy;
-    private String lastUpdatedBy;
-    private String owner;
-    private Set<UserGroupPermission> userGroupPermissions = new HashSet<>();
-    private Set<IamPrincipalPermission> iamPrincipalPermissions = new HashSet<>();
-
-    private Builder() {}
-
-    public static Builder create() {
-      return new Builder();
-    }
-
-    public Builder withId(String id) {
-      this.id = id;
-      return this;
-    }
-
-    public Builder withCategoryId(String categoryId) {
-      this.categoryId = categoryId;
-      return this;
-    }
-
-    public Builder withName(String name) {
-      this.name = name;
-      return this;
-    }
-
-    public Builder withDescription(String description) {
-      this.description = description;
-      return this;
-    }
-
-    public Builder withPath(String path) {
-      this.path = path;
-      return this;
-    }
-
-    public Builder withCreatedTs(OffsetDateTime createdTs) {
-      this.createdTs = createdTs;
-      return this;
-    }
-
-    public Builder withLastUpdatedTs(OffsetDateTime lastUpdatedTs) {
-      this.lastUpdatedTs = lastUpdatedTs;
-      return this;
-    }
-
-    public Builder withCreatedBy(String createdBy) {
-      this.createdBy = createdBy;
-      return this;
-    }
-
-    public Builder withLastUpdatedBy(String lastUpdatedBy) {
-      this.lastUpdatedBy = lastUpdatedBy;
-      return this;
-    }
-
-    public Builder withOwner(String owner) {
-      this.owner = owner;
-      return this;
-    }
-
-    public Builder withUserGroupPermissions(Set<UserGroupPermission> userGroupPermissions) {
-      this.userGroupPermissions = userGroupPermissions;
-      return this;
-    }
-
-    public Builder withIamPrincipalPermissions(
-        Set<IamPrincipalPermission> iamPrincipalPermissions) {
-      this.iamPrincipalPermissions = iamPrincipalPermissions;
-      return this;
-    }
-
-    public SafeDepositBoxV2 build() {
-      SafeDepositBoxV2 safeDepositBoxV2 = new SafeDepositBoxV2();
-      safeDepositBoxV2.setId(id);
-      safeDepositBoxV2.setCategoryId(categoryId);
-      safeDepositBoxV2.setName(name);
-      safeDepositBoxV2.setDescription(description);
-      safeDepositBoxV2.setPath(path);
-      safeDepositBoxV2.setCreatedTs(createdTs);
-      safeDepositBoxV2.setLastUpdatedTs(lastUpdatedTs);
-      safeDepositBoxV2.setCreatedBy(createdBy);
-      safeDepositBoxV2.setLastUpdatedBy(lastUpdatedBy);
-      safeDepositBoxV2.setOwner(owner);
-      safeDepositBoxV2.setUserGroupPermissions(userGroupPermissions);
-      safeDepositBoxV2.setIamPrincipalPermissions(iamPrincipalPermissions);
-      return safeDepositBoxV2;
-    }
-  }
 }

@@ -49,21 +49,14 @@ public abstract class BaseCerberusClient {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	private final MediaType DEFAULT_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
-	
 	protected static final int DEFAULT_OFFSET 		= 0;
 	protected static final int DEFAULT_LIMIT 		= 100;
 	private static final int DEFAULT_NUM_RETRIES 	= 3;
 
-	private final RetryConfig RETRY_CONFIG = RetryConfig.<Response>custom().maxAttempts(DEFAULT_NUM_RETRIES)
-			.retryOnResult(response -> response.code() >= 500 && response.code() <= 599)
-			.intervalFunction(IntervalFunction.ofExponentialBackoff(Duration.of(250, ChronoUnit.MILLIS))).build();
-	private final Retry RETRY = Retry.of(this.getClass().getName(), RETRY_CONFIG);
-
-	private final Gson gson = Converters.registerOffsetDateTime(new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-			.disableHtmlEscaping().registerTypeAdapter(DateTime.class,
-					(JsonDeserializer<DateTime>) (json, typeOfT, context) -> new DateTime(json.getAsString()))
-			).create();
+	private final MediaType defaultMediaType;
+	private final RetryConfig retryConfig;
+	private final Retry retry;
+	private final Gson gson;
 
 	private final CerberusCredentialsProvider credentialsProvider;
 	private final OkHttpClient httpClient;
@@ -97,6 +90,15 @@ public abstract class BaseCerberusClient {
 		this.credentialsProvider = credentialsProvider;
 		this.httpClient = httpClient;
 		this.defaultHeaders = defaultHeaders;
+		this.retryConfig = RetryConfig.<Response>custom().maxAttempts(DEFAULT_NUM_RETRIES)
+				.retryOnResult(response -> response.code() >= 500 && response.code() <= 599)
+				.intervalFunction(IntervalFunction.ofExponentialBackoff(Duration.of(250, ChronoUnit.MILLIS))).build();
+		this.retry = Retry.of(this.getClass().getName(), retryConfig);
+		this.gson = Converters.registerOffsetDateTime(new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+				.disableHtmlEscaping().registerTypeAdapter(DateTime.class,
+						(JsonDeserializer<DateTime>) (json, typeOfT, context) -> new DateTime(json.getAsString()))
+				).create();
+		this.defaultMediaType = MediaType.parse("application/json; charset=utf-8");
 	}
 
 	public BaseCerberusClient(final String cerberusUrl, final CerberusCredentialsProvider credentialsProvider,
@@ -118,8 +120,18 @@ public abstract class BaseCerberusClient {
 		this.credentialsProvider = credentialsProvider;
 		this.httpClient = httpClient;
 		this.defaultHeaders = new Headers.Builder().build();
+		
+		this.retryConfig = RetryConfig.<Response>custom().maxAttempts(DEFAULT_NUM_RETRIES)
+				.retryOnResult(response -> response.code() >= 500 && response.code() <= 599)
+				.intervalFunction(IntervalFunction.ofExponentialBackoff(Duration.of(250, ChronoUnit.MILLIS))).build();
+		this.retry = Retry.of(this.getClass().getName(), retryConfig);
+		this.gson = Converters.registerOffsetDateTime(new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+				.disableHtmlEscaping().registerTypeAdapter(DateTime.class,
+						(JsonDeserializer<DateTime>) (json, typeOfT, context) -> new DateTime(json.getAsString()))
+				).create();
+		this.defaultMediaType = MediaType.parse("application/json; charset=utf-8");
 	}
-
+	
 	/*
 	 * Execute request
 	 */
@@ -131,7 +143,7 @@ public abstract class BaseCerberusClient {
 	protected Response executeWithRetry(HttpUrl httpUrl,HttpMethod method,Object requestBody) throws CerberusClientException{
 		return ofSupplier(() -> {
 				return execute(httpUrl, method, requestBody);
-		}).withRetry(RETRY).decorate().get();
+		}).withRetry(retry).decorate().get();
 	}
 
 	
@@ -148,8 +160,8 @@ public abstract class BaseCerberusClient {
         Request request = new Request.Builder()
                 .url(httpUrl)
                 .headers(defaultHeaders)
-                .addHeader(HttpHeader.CERBERUS_TOKEN, credentialsProvider.getCredentials().getToken())
-                .addHeader(HttpHeader.ACCEPT, DEFAULT_MEDIA_TYPE.toString())
+                .addHeader(HttpHeader.CERBERUS_TOKEN.get(), credentialsProvider.getCredentials().getToken())
+                .addHeader(HttpHeader.ACCEPT.get(), defaultMediaType.toString())
                 .post(requestBody)
                 .build();
 
@@ -185,14 +197,14 @@ public abstract class BaseCerberusClient {
 																									// because it
 																									// overwrites all
 																									// existing headers
-				.addHeader(HttpHeader.CERBERUS_TOKEN, credentialsProvider.getCredentials().getToken())
-				.addHeader(HttpHeader.ACCEPT, DEFAULT_MEDIA_TYPE.toString());
+				.addHeader(HttpHeader.CERBERUS_TOKEN.get(), credentialsProvider.getCredentials().getToken())
+				.addHeader(HttpHeader.ACCEPT.get(), defaultMediaType.toString());
 
 		if (requestBody != null) {
-			requestBuilder.addHeader(HttpHeader.CONTENT_TYPE, DEFAULT_MEDIA_TYPE.toString()).method(method.getHttpMethod(),
-					RequestBody.create(DEFAULT_MEDIA_TYPE, gson.toJson(requestBody)));
+			requestBuilder.addHeader(HttpHeader.CONTENT_TYPE.get(), defaultMediaType.toString()).method(method.get(),
+					RequestBody.create(defaultMediaType, gson.toJson(requestBody)));
 		} else {
-			requestBuilder.method(method.getHttpMethod(), null);
+			requestBuilder.method(method.get(), null);
 		}
 
 		return requestBuilder.build();
@@ -204,10 +216,10 @@ public abstract class BaseCerberusClient {
 	public Map<String,String> getLimitMappings(int limit, int offset){
 		Map<String,String> mapping = new HashMap<>();
 		if(limit > 0) {
-			mapping.put(HttpParam.LIMIT, ""+limit);
+			mapping.put(HttpParam.LIMIT.get(), ""+limit);
 		}
 		if(offset > -1) {
-			mapping.put(HttpParam.OFFSET, ""+offset);
+			mapping.put(HttpParam.OFFSET.get(), ""+offset);
 		}
 		return mapping;
 	}

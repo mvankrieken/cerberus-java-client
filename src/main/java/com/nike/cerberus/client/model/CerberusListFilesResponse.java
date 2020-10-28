@@ -33,62 +33,36 @@ public class CerberusListFilesResponse {
         return hasNext;
     }
 
-    public CerberusListFilesResponse setHasNext(boolean hasNext) {
-        this.hasNext = hasNext;
-        return this;
-    }
-
     public Integer getNextOffset() {
         return nextOffset;
-    }
-
-    public CerberusListFilesResponse setNextOffset(Integer nextOffset) {
-        this.nextOffset = nextOffset;
-        return this;
     }
 
     public int getLimit() {
         return limit;
     }
 
-    public CerberusListFilesResponse setLimit(int limit) {
-        this.limit = limit;
-        return this;
-    }
-
     public int getOffset() {
         return offset;
-    }
-
-    public CerberusListFilesResponse setOffset(int offset) {
-        this.offset = offset;
-        return this;
     }
 
     public int getFileCountInResult() {
         return fileCountInResult;
     }
 
-    public CerberusListFilesResponse setFileCountInResult(int fileCountInResult) {
-        this.fileCountInResult = fileCountInResult;
-        return this;
-    }
-
     public int getTotalFileCount() {
         return totalFileCount;
-    }
-
-    public CerberusListFilesResponse setTotalFileCount(int totalFileCount) {
-        this.totalFileCount = totalFileCount;
-        return this;
     }
 
     public List<SecureFileSummary> getSecureFileSummaries() {
         return secureFileSummaries;
     }
 
-    public CerberusListFilesResponse setSecureFileSummaries(List<SecureFileSummary> secureFileSummaries) {
-        this.secureFileSummaries = secureFileSummaries;
-        return this;
-    }
+	@Override
+	public String toString() {
+		return "CerberusListFilesResponse [hasNext=" + hasNext + ", nextOffset=" + nextOffset + ", limit=" + limit
+				+ ", offset=" + offset + ", fileCountInResult=" + fileCountInResult + ", totalFileCount="
+				+ totalFileCount + ", secureFileSummaries=" + secureFileSummaries + "]";
+	}
+    
+    
 }

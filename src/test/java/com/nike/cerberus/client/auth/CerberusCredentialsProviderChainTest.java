@@ -184,4 +184,10 @@ public class CerberusCredentialsProviderChainTest {
 
         verify(credentialsProviderOne, never()).getCredentials();
     }
+    
+    @Test
+    public void test_should_run() {
+    	CerberusCredentialsProvider provider = new DefaultCerberusCredentialsProviderChain("some-url", "eu-west-1");
+    	assertThat(provider.shouldRun()).isTrue();
+    }
 }
